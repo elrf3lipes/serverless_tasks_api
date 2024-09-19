@@ -1,0 +1,163 @@
+{
+  "info": {
+    "name": "ServerlessTasksAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Task",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"Task 1\",\n    \"description\": \"This is task 1\",\n    \"status\": \"pending\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/tasks",
+          "host": ["{{baseUrl}}"],
+          "path": ["tasks"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Task",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/tasks/{{taskId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["tasks", "{{taskId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Task",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"Updated Task\",\n    \"description\": \"This task has been updated\",\n    \"status\": \"completed\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/tasks/{{taskId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["tasks", "{{taskId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Task",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/tasks/{{taskId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["tasks", "{{taskId}}"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "if (pm.info.requestName === 'Create Task') {",
+          "    pm.test('Create Task Response Status Code is 200', function () {",
+          "        pm.response.to.have.status(200);",
+          "    });",
+          "",
+          "    pm.test('Create Task Response has valid JSON', function () {",
+          "        pm.response.to.be.json;",
+          "    });",
+          "",
+          "    pm.test('Create Task Response contains taskId', function () {",
+          "        var jsonData = pm.response.json();",
+          "        pm.expect(jsonData).to.have.property('taskId');",
+          "        pm.expect(jsonData.taskId).to.be.a('string');",
+          "    });",
+          "",
+          "    pm.test('Create Task Response contains correct task details', function () {",
+          "        var jsonData = pm.response.json();",
+          "        pm.expect(jsonData.title).to.eql('Task 1');",
+          "        pm.expect(jsonData.description).to.eql('This is task 1');",
+          "        pm.expect(jsonData.status).to.eql('pending');",
+          "    });",
+          "}",
+          "",
+          "if (pm.info.requestName === 'Get Task') {",
+          "    pm.test('Retrieve Task Response Status Code is 200', function () {",
+          "        pm.response.to.have.status(200);",
+          "    });",
+          "",
+          "    pm.test('Retrieve Task Response has valid JSON', function () {",
+          "        pm.response.to.be.json;",
+          "    });",
+          "",
+          "    pm.test('Retrieve Task Response contains correct task details', function () {",
+          "        var jsonData = pm.response.json();",
+          "        pm.expect(jsonData).to.have.property('taskId');",
+          "        pm.expect(jsonData).to.have.property('title');",
+          "        pm.expect(jsonData).to.have.property('description');",
+          "        pm.expect(jsonData).to.have.property('status');",
+          "    });",
+          "}",
+          "",
+          "if (pm.info.requestName === 'Update Task') {",
+          "    pm.test('Update Task Response Status Code is 200', function () {",
+          "        pm.response.to.have.status(200);",
+          "    });",
+          "",
+          "    pm.test('Update Task Response has valid JSON', function () {",
+          "        pm.response.to.be.json;",
+          "    });",
+          "",
+          "    pm.test('Update Task Response contains correct message', function () {",
+          "        var jsonData = pm.response.json();",
+          "        pm.expect(jsonData.message).to.eql('Task updated successfully');",
+          "    });",
+          "}",
+          "",
+          "if (pm.info.requestName === 'Delete Task') {",
+          "    pm.test('Delete Task Response Status Code is 204', function () {",
+          "        pm.response.to.have.status(204);",
+          "    });",
+          "",
+          "    pm.test('Delete Task Response has no content', function () {",
+          "        pm.response.to.have.body('');",
+          "    });",
+          "}"
+        ]
+      }
+    }
+  ]
+}
