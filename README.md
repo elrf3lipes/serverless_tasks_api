@@ -50,4 +50,4 @@ curl -X PUT https://<api-url>/tasks/<taskId> \
 ```bash
 curl -X DELETE https://<api-url>/tasks/<taskId>
 ```
-! [Curl Responses](https://github.com/elrf3lipes/ramon-s_portfolio/raw/main/images/curl_responses.png)
+![Curl Responses](https://github.com/elrf3lipes/ramon-s_portfolio/raw/main/images/curl_responses.png)
