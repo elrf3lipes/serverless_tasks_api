@@ -50,4 +50,7 @@ curl -X PUT https://<api-url>/tasks/<taskId> \
 ```bash
 curl -X DELETE https://<api-url>/tasks/<taskId>
 ```
+
+- **Example of Curl commands and Responses**:
+
 ![Curl Responses](https://github.com/elrf3lipes/ramon-s_portfolio/raw/main/images/curl_responses.png)
